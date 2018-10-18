@@ -1,0 +1,81 @@
+package compiler.pascal;
+
+import java_cup.runtime.Symbol;
+import java.util.*;
+import java.io.*;
+
+
+parser code {:
+
+    public void report_error(String message, Object info)  {
+        System.out.println("Warning - " + message);
+    }
+
+    public void report_fatal_error(String message, Object info)  {
+        System.out.println("Error - " + message);
+        System.exit(-1);
+    }
+
+:};
+
+
+terminal PROGRAMA;
+terminal BEGIN;
+terminal END;
+terminal IF;
+terminal THEN;
+terminal ELSE;
+terminal AND;
+terminal CASE;
+terminal OR;
+terminal OF;
+terminal FUNCTION;
+terminal TYPE;
+terminal GOTO;
+terminal FOR;
+terminal WHILE;
+terminal VAR;
+terminal WRITE;
+terminal WRITELN;
+terminal ARRAY;
+terminal WITH;
+terminal DO;
+terminal IN;
+terminal USES;
+terminal TIPO_INTEGER;
+terminal TIPO_REAL;
+terminal TIPO_BOOLEAN;
+terminal TIPO_DOUBLE;
+terminal TIPO_STRING;
+terminal TIPO_BYTE;
+terminal PONTO_VIRGULA;
+terminal DOIS_PONTOS;
+terminal ADICAO;
+terminal SUBTRACAO;
+terminal MULTIPLICACAO;
+terminal DIVISAO;
+terminal ABRE_PARENTESE;
+terminal FECHA_PARENTESE;
+terminal ABRE_COLCHETE;
+terminal FECHA_COLCHETE;
+terminal VIRGULA;
+terminal MAIOR;
+terminal MENOR;
+terminal MAIOR_IGUAL;
+terminal MENOR_IGUAL;
+terminal DIFERENTE;
+terminal ATRIBUICAO;
+terminal PONTO;
+terminal COMENTARIO;
+terminal INTEGER;
+terminal REAL;
+terminal ID;
+terminal STRING;
+terminal BOOLEAN;
+
+non terminal program;
+
+
+start with program;
+
+program ::= PROGRAMA;
