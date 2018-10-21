@@ -15,7 +15,7 @@ public class Main {
 
         try {
             Parser p = new Parser(new LexicalAnalyzer(new FileReader(sourcecode)));
-            Object result = p.parse().value;
+            Object o = p.parse().value;
             System.out.println("Compilacao concluida com sucesso...");
         } catch (Exception e) {
             e.printStackTrace();

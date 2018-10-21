@@ -73,9 +73,10 @@ terminal ID;
 terminal STRING;
 terminal BOOLEAN;
 
-non terminal program;
+non terminal expression;
 
 
-start with program;
+start with expression;
 
-program ::= PROGRAMA;
+expression ::= INTEGER ADICAO INTEGER PONTO_VIRGULA;
+

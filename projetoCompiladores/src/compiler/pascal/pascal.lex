@@ -13,6 +13,8 @@ import java_cup.runtime.Symbol;
 %class LexicalAnalyzer
 %line
 %column
+%eofval{ return new Symbol(Sym.EOF) ;
+%eofval}
 
 letra = [a-zA-z]
 digito = [0-9]
@@ -31,59 +33,61 @@ string = \"{conteudoString}\"
 
 %%
 
-"Program" { return new Symbol(Sym.PROGRAMA); }
-"Begin" { return new Symbol(Sym.BEGIN); }
-"End" { return new Symbol(Sym.END); }
-"If" { return new Symbol(Sym.IF); }
-"Then" { return new Symbol(Sym.THEN); }
-"Else" { return new Symbol(Sym.ELSE);}
-"and" { return new Symbol(Sym.AND); }
-"case" { return new Symbol(Sym.CASE); }
-"or" { return new Symbol(Sym.OR); }
-"of" { return new Symbol(Sym.OF); }
-"Function" { return new Symbol(Sym.FUNCTION); }
-"type" { return new Symbol(Sym.TYPE); }
-"Goto" { return new Symbol(Sym.GOTO); }
-"for" { return new Symbol(Sym.FOR); }
-"while" { return new Symbol(Sym.WHILE); }
-"Var" { return new Symbol(Sym.VAR); }
-"Write" { return new Symbol(Sym.WRITE); }
-"Writeln" { return new Symbol(Sym.WRITELN); }
-"array" { return new Symbol(Sym.ARRAY); }
-"with" { return new Symbol(Sym.WITH); }
-"do" { return new Symbol(Sym.DO); }
-"In"  { return new Symbol(Sym.IN); }
-"uses" { return new Symbol(Sym.USES); }
-"Integer" { return new Symbol(Sym.TIPO_INTEGER); }
-"Real" { return new Symbol(Sym.TIPO_REAL); }
-"Double" { return new Symbol(Sym.TIPO_DOUBLE); }
-"Boolean" { return new Symbol(Sym.TIPO_BOOLEAN); }
-"String" { return new Symbol(Sym.TIPO_STRING); }
-"Byte" { return new Symbol(Sym.TIPO_BYTE); }
-\; { return new Symbol(Sym.PONTO_VIRGULA); }
-\: { return new Symbol(Sym.DOIS_PONTOS); }
-\+ { return new Symbol(Sym.ADICAO); }
-\- { return new Symbol(Sym.SUBTRACAO); }
-\* { return new Symbol(Sym.MULTIPLICACAO); }
-\/ { return new Symbol(Sym.DIVISAO); }
-\( { return new Symbol(Sym.ABRE_PARENTESE); }
-\) { return new Symbol(Sym.FECHA_PARENTESE); }
-\[ { return new Symbol(Sym.ABRE_COLCHETE); }
-\] { return new Symbol(Sym.FECHA_COLCHETE); }
-\, { return new Symbol(Sym.VIRGULA); }
-\> { return new Symbol(Sym.MAIOR); }
-\< { return new Symbol(Sym.MENOR); }
-\>= { return new Symbol(Sym.MAIOR_IGUAL); }
-\<= { return new Symbol(Sym.MENOR_IGUAL); }
-\<> { return new Symbol(Sym.DIFERENTE); }
-\:= { return new Symbol(Sym.ATRIBUICAO); }
-\. { return new Symbol(Sym.PONTO); }
-{brancos} { } 
-{comentario} { return new Symbol(Sym.COMENTARIO); }
-{inteiro} { return new Symbol(Sym.INTEGER); }
-{id} { return new Symbol(Sym.ID); }
-{real} { return new Symbol(Sym.REAL); }
-{string} { return new Symbol(Sym.STRING); }
-{boolean} { return new Symbol(Sym.BOOLEAN); }
+<YYINITIAL> {
+	"Program" { return new Symbol(Sym.PROGRAMA); }
+	"Begin" { return new Symbol(Sym.BEGIN); }
+	"End" { return new Symbol(Sym.END); }
+	"If" { return new Symbol(Sym.IF); }
+	"Then" { return new Symbol(Sym.THEN); }
+	"Else" { return new Symbol(Sym.ELSE);}
+	"and" { return new Symbol(Sym.AND); }
+	"case" { return new Symbol(Sym.CASE); }
+	"or" { return new Symbol(Sym.OR); }
+	"of" { return new Symbol(Sym.OF); }
+	"Function" { return new Symbol(Sym.FUNCTION); }
+	"type" { return new Symbol(Sym.TYPE); }
+	"Goto" { return new Symbol(Sym.GOTO); }
+	"for" { return new Symbol(Sym.FOR); }
+	"while" { return new Symbol(Sym.WHILE); }
+	"Var" { return new Symbol(Sym.VAR); }
+	"Write" { return new Symbol(Sym.WRITE); }
+	"Writeln" { return new Symbol(Sym.WRITELN); }
+	"array" { return new Symbol(Sym.ARRAY); }
+	"with" { return new Symbol(Sym.WITH); }
+	"do" { return new Symbol(Sym.DO); }
+	"In"  { return new Symbol(Sym.IN); }
+	"uses" { return new Symbol(Sym.USES); }
+	"Integer" { return new Symbol(Sym.TIPO_INTEGER); }
+	"Real" { return new Symbol(Sym.TIPO_REAL); }
+	"Double" { return new Symbol(Sym.TIPO_DOUBLE); }
+	"Boolean" { return new Symbol(Sym.TIPO_BOOLEAN); }
+	"String" { return new Symbol(Sym.TIPO_STRING); }
+	"Byte" { return new Symbol(Sym.TIPO_BYTE); }
+	\; { return new Symbol(Sym.PONTO_VIRGULA); }
+	\: { return new Symbol(Sym.DOIS_PONTOS); }
+	\+ { return new Symbol(Sym.ADICAO); }
+	\- { return new Symbol(Sym.SUBTRACAO); }
+	\* { return new Symbol(Sym.MULTIPLICACAO); }
+	\/ { return new Symbol(Sym.DIVISAO); }
+	\( { return new Symbol(Sym.ABRE_PARENTESE); }
+	\) { return new Symbol(Sym.FECHA_PARENTESE); }
+	\[ { return new Symbol(Sym.ABRE_COLCHETE); }
+	\] { return new Symbol(Sym.FECHA_COLCHETE); }
+	\, { return new Symbol(Sym.VIRGULA); }
+	\> { return new Symbol(Sym.MAIOR); }
+	\< { return new Symbol(Sym.MENOR); }
+	\>= { return new Symbol(Sym.MAIOR_IGUAL); }
+	\<= { return new Symbol(Sym.MENOR_IGUAL); }
+	\<> { return new Symbol(Sym.DIFERENTE); }
+	\:= { return new Symbol(Sym.ATRIBUICAO); }
+	\. { return new Symbol(Sym.PONTO); }
+	{brancos} { } 
+	{comentario} { return new Symbol(Sym.COMENTARIO); }
+	{inteiro} { return new Symbol(Sym.INTEGER, "inteiro"); }
+	{id} { return new Symbol(Sym.ID, yytext()); }
+	{real} { return new Symbol(Sym.REAL, yytext()); }
+	{string} { return new Symbol(Sym.STRING, yytext()); }
+	{boolean} { return new Symbol(Sym.BOOLEAN, yytext()); }
+}
 
 . { throw new RuntimeException("Caractere inválido " + yytext() + " na linha " + yyline + ", coluna " +yycolumn); }

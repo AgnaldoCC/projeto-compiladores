@@ -756,7 +756,7 @@ public class LexicalAnalyzer implements java_cup.runtime.Scanner {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
             zzDoEOF();
-          { return new java_cup.runtime.Symbol(sym.EOF); }
+          {  }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
@@ -766,12 +766,12 @@ public class LexicalAnalyzer implements java_cup.runtime.Scanner {
             // fall through
           case 55: break;
           case 2: 
-            { return new Symbol(Sym.ID);
+            { return new Symbol(Sym.ID, yytext());
             } 
             // fall through
           case 56: break;
           case 3: 
-            { return new Symbol(Sym.INTEGER);
+            { return new Symbol(Sym.INTEGER, new Integer(yytext()));
             } 
             // fall through
           case 57: break;
@@ -856,7 +856,7 @@ public class LexicalAnalyzer implements java_cup.runtime.Scanner {
             // fall through
           case 73: break;
           case 20: 
-            { return new Symbol(Sym.STRING);
+            { return new Symbol(Sym.STRING, yytext());
             } 
             // fall through
           case 74: break;
@@ -906,7 +906,7 @@ public class LexicalAnalyzer implements java_cup.runtime.Scanner {
             // fall through
           case 83: break;
           case 30: 
-            { return new Symbol(Sym.REAL);
+            { return new Symbol(Sym.REAL, yytext());
             } 
             // fall through
           case 84: break;
