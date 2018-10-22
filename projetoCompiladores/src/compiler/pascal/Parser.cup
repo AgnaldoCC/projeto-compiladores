@@ -14,10 +14,6 @@ parser code {:
         System.exit(-1);
     }
 
-	public void syntax_error(Symbol s){
-   		 System.out.println(s.value);
-}
-
 :};
 
 
@@ -75,7 +71,8 @@ terminal Integer INTEGER;
 terminal float REAL;
 terminal ID;
 terminal String STRING;
-terminal boolean BOOLEAN;
+terminal boolean TRUE;
+terminal boolean FALSE;
 
 non terminal programa;
 non terminal cabecalho;
@@ -84,6 +81,7 @@ non terminal corpo;
 non terminal exp_list;
 non terminal ids;
 non terminal tipos;
+non terminal grupo_declaracoes;
 non terminal grupo_declaracao_var;
 non terminal grupo_declaracao_label;
 non terminal grupo_declaracao_constante;
@@ -96,7 +94,14 @@ non terminal declaracao_funcao;
 non terminal declaracao_procedure;
 non terminal grupo_declaracao;
 non terminal id_list;
+non terminal parametros;
+non terminal parametro;
 non terminal Integer expression;
+non terminal corpo_funcao;
+non terminal corpo_codigo;
+non terminal atribuicao;
+non terminal atribuicoes;
+non terminal op_booleano;
 
 precedence left ADICAO, SUBTRACAO;
 precedence left MULTIPLICACAO, DIVISAO;
@@ -105,7 +110,23 @@ start with programa;
 
 programa ::= cabecalho declaracoes;
 
-declaracoes ::= declaracao_var;
+declaracoes ::= grupo_declaracoes;
+
+grupo_declaracoes ::= VAR grupo_declaracao_var declaracao_funcao declaracao_procedure
+						| declaracao_funcao declaracao_procedure VAR grupo_declaracao_var
+						| declaracao_funcao VAR grupo_declaracao_var declaracao_procedure
+						| VAR grupo_declaracao_var declaracao_procedure declaracao_funcao
+						| declaracao_procedure VAR grupo_declaracao_var declaracao_funcao
+						| declaracao_procedure declaracao_funcao VAR grupo_declaracao_var  
+						| declaracao_funcao declaracao_procedure
+						| declaracao_funcao VAR grupo_declaracao_var
+						| declaracao_procedure declaracao_funcao
+						| VAR grupo_declaracao_var declaracao_procedure
+						| VAR grupo_declaracao_var declaracao_funcao
+						| declaracao_procedure VAR grupo_declaracao_var
+						| declaracao_funcao
+						| declaracao_procedure
+						| VAR grupo_declaracao_var; 
 
 cabecalho ::= PROGRAMA ID PONTO_VIRGULA;
 
@@ -115,10 +136,41 @@ tipos ::= TIPO_INTEGER
 		  |TIPO_REAL
 		  ;
 
+atribuicao ::= ID ATRIBUICAO exp_list;
+
+atribuicoes ::= atribuicoes atribuicao
+				| atribuicao;
+
 id_list ::= ID
 			| ID VIRGULA id_list;
 
-declaracao_var ::= VAR id_list DOIS_PONTOS tipos PONTO_VIRGULA;
+//Variaveis
+declaracao_var ::= id_list DOIS_PONTOS tipos;
+
+
+
+grupo_declaracao_var ::= PONTO_VIRGULA
+						| declaracao_var grupo_declaracao_var
+						| PONTO_VIRGULA grupo_declaracao_var; 
+
+
+//Funcoes
+parametro ::= ID DOIS_PONTOS tipos;
+parametros ::= parametro
+				| parametro VIRGULA parametros;
+
+declaracao_funcao ::= FUNCTION ID ABRE_PARENTESE parametros FECHA_PARENTESE DOIS_PONTOS tipos PONTO_VIRGULA corpo_funcao
+						| FUNCTION ID DOIS_PONTOS tipos PONTO_VIRGULA corpo_funcao;
+
+corpo_funcao ::= VAR grupo_declaracao_var BEGIN corpo_codigo END PONTO_VIRGULA
+				| BEGIN corpo_codigo END PONTO_VIRGULA;
+
+//Procedures
+declaracao_procedure ::= PROCEDURE ID ABRE_PARENTESE parametros FECHA_PARENTESE PONTO_VIRGULA corpo_funcao
+						| PROCEDURE ID PONTO_VIRGULA corpo_funcao;
+
+corpo_codigo ::= exp_list
+				| atribuicoes;
 
 exp_list ::= exp_list expression:e PONTO_VIRGULA 
 			| expression:e PONTO_VIRGULA 

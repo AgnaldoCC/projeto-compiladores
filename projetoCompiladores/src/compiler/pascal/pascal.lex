@@ -20,7 +20,6 @@ alfanum = {letra}|{digito}
 id = {letra}({alfanum}|_)*
 inteiro = {digito}+
 real = {inteiro}\.{inteiro}
-boolean = true|false
 inicioComentario = \{
 fimComentario = \}
 conteudoComentario = [^}]*
@@ -63,6 +62,8 @@ string = \"{conteudoString}\"
 	"Boolean" { return new Symbol(Sym.TIPO_BOOLEAN); }
 	"String" { return new Symbol(Sym.TIPO_STRING); }
 	"Byte" { return new Symbol(Sym.TIPO_BYTE); }
+	"true" { return new Symbol(Sym.TRUE, true);}
+	"false" { return new Symbol(Sym.FALSE, false);}
 	\; { return new Symbol(Sym.PONTO_VIRGULA); }
 	\: { return new Symbol(Sym.DOIS_PONTOS); }
 	\+ { return new Symbol(Sym.ADICAO); }
@@ -87,7 +88,7 @@ string = \"{conteudoString}\"
 	{id} { return new Symbol(Sym.ID, yytext()); }
 	{real} { return new Symbol(Sym.REAL, yytext()); }
 	{string} { return new Symbol(Sym.STRING, yytext()); }
-	{boolean} { return new Symbol(Sym.BOOLEAN, yytext()); }
+	
 }
 
 <<EOF>> { return new Symbol(Sym.EOF); }

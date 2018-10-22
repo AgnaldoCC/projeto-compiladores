@@ -38,11 +38,11 @@ public class Sym {
   public static final int WRITELN = 21;
   public static final int ID = 54;
   public static final int OF = 11;
-  public static final int BOOLEAN = 56;
   public static final int ABRE_COLCHETE = 41;
   public static final int EOF = 0;
   public static final int MAIOR = 44;
   public static final int PONTO_VIRGULA = 33;
+  public static final int TRUE = 56;
   public static final int error = 1;
   public static final int TIPO_DOUBLE = 30;
   public static final int COMENTARIO = 51;
@@ -59,6 +59,7 @@ public class Sym {
   public static final int STRING = 55;
   public static final int USES = 26;
   public static final int MENOR_IGUAL = 47;
+  public static final int FALSE = 57;
   public static final int LABEL = 13;
   public static final int MAIOR_IGUAL = 46;
   public static final int SUBTRACAO = 36;
@@ -122,7 +123,8 @@ public class Sym {
   "REAL",
   "ID",
   "STRING",
-  "BOOLEAN"
+  "TRUE",
+  "FALSE"
   };
 }
 
