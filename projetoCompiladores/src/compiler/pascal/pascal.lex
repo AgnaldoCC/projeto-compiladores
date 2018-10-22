@@ -13,8 +13,6 @@ import java_cup.runtime.Symbol;
 %class LexicalAnalyzer
 %line
 %column
-%eofval{ return new Symbol(Sym.EOF) ;
-%eofval}
 
 letra = [a-zA-z]
 digito = [0-9]
@@ -45,6 +43,8 @@ string = \"{conteudoString}\"
 	"or" { return new Symbol(Sym.OR); }
 	"of" { return new Symbol(Sym.OF); }
 	"Function" { return new Symbol(Sym.FUNCTION); }
+	"Label" { return new Symbol(Sym.LABEL); }
+	"Procedure" { return new Symbol(Sym.PROCEDURE); }
 	"type" { return new Symbol(Sym.TYPE); }
 	"Goto" { return new Symbol(Sym.GOTO); }
 	"for" { return new Symbol(Sym.FOR); }
@@ -83,11 +83,13 @@ string = \"{conteudoString}\"
 	\. { return new Symbol(Sym.PONTO); }
 	{brancos} { } 
 	{comentario} { return new Symbol(Sym.COMENTARIO); }
-	{inteiro} { return new Symbol(Sym.INTEGER, "inteiro"); }
+	{inteiro} { return new Symbol(Sym.INTEGER, new Integer(Integer.parseInt(yytext()))); }
 	{id} { return new Symbol(Sym.ID, yytext()); }
 	{real} { return new Symbol(Sym.REAL, yytext()); }
 	{string} { return new Symbol(Sym.STRING, yytext()); }
 	{boolean} { return new Symbol(Sym.BOOLEAN, yytext()); }
 }
+
+<<EOF>> { return new Symbol(Sym.EOF); }
 
 . { throw new RuntimeException("Caractere inválido " + yytext() + " na linha " + yyline + ", coluna " +yycolumn); }

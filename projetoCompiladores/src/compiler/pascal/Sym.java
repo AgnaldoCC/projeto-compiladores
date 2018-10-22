@@ -8,61 +8,63 @@ package compiler.pascal;
 /** CUP generated class containing symbol constants. */
 public class Sym {
   /* terminals */
-  public static final int TIPO_INTEGER = 25;
-  public static final int ABRE_PARENTESE = 37;
+  public static final int TIPO_INTEGER = 27;
+  public static final int ABRE_PARENTESE = 39;
   public static final int FUNCTION = 12;
-  public static final int ADICAO = 33;
-  public static final int WITH = 21;
-  public static final int TIPO_BYTE = 30;
+  public static final int ADICAO = 35;
+  public static final int WITH = 23;
+  public static final int TIPO_BYTE = 32;
   public static final int PROGRAMA = 2;
-  public static final int TIPO_REAL = 26;
-  public static final int DIFERENTE = 46;
+  public static final int TIPO_REAL = 28;
+  public static final int DIFERENTE = 48;
   public static final int CASE = 9;
-  public static final int INTEGER = 50;
-  public static final int MULTIPLICACAO = 35;
-  public static final int TIPO_STRING = 29;
-  public static final int ARRAY = 20;
-  public static final int FOR = 15;
-  public static final int DOIS_PONTOS = 32;
-  public static final int PONTO = 48;
-  public static final int VIRGULA = 41;
-  public static final int WRITE = 18;
+  public static final int INTEGER = 52;
+  public static final int MULTIPLICACAO = 37;
+  public static final int TIPO_STRING = 31;
+  public static final int ARRAY = 22;
+  public static final int FOR = 17;
+  public static final int DOIS_PONTOS = 34;
+  public static final int PONTO = 50;
+  public static final int VIRGULA = 43;
+  public static final int WRITE = 20;
   public static final int AND = 8;
-  public static final int TIPO_BOOLEAN = 27;
-  public static final int FECHA_PARENTESE = 38;
-  public static final int TYPE = 13;
-  public static final int IN = 23;
+  public static final int TIPO_BOOLEAN = 29;
+  public static final int FECHA_PARENTESE = 40;
+  public static final int TYPE = 15;
+  public static final int IN = 25;
   public static final int OR = 10;
   public static final int BEGIN = 3;
   public static final int IF = 5;
-  public static final int WRITELN = 19;
-  public static final int ID = 52;
+  public static final int WRITELN = 21;
+  public static final int ID = 54;
   public static final int OF = 11;
-  public static final int BOOLEAN = 54;
-  public static final int ABRE_COLCHETE = 39;
+  public static final int BOOLEAN = 56;
+  public static final int ABRE_COLCHETE = 41;
   public static final int EOF = 0;
-  public static final int MAIOR = 42;
-  public static final int PONTO_VIRGULA = 31;
+  public static final int MAIOR = 44;
+  public static final int PONTO_VIRGULA = 33;
   public static final int error = 1;
-  public static final int TIPO_DOUBLE = 28;
-  public static final int COMENTARIO = 49;
-  public static final int MENOR = 43;
-  public static final int DIVISAO = 36;
-  public static final int REAL = 51;
-  public static final int FECHA_COLCHETE = 40;
+  public static final int TIPO_DOUBLE = 30;
+  public static final int COMENTARIO = 51;
+  public static final int MENOR = 45;
+  public static final int DIVISAO = 38;
+  public static final int REAL = 53;
+  public static final int FECHA_COLCHETE = 42;
   public static final int ELSE = 7;
-  public static final int GOTO = 14;
-  public static final int WHILE = 16;
+  public static final int GOTO = 16;
+  public static final int WHILE = 18;
   public static final int THEN = 6;
-  public static final int ATRIBUICAO = 47;
+  public static final int ATRIBUICAO = 49;
   public static final int END = 4;
-  public static final int STRING = 53;
-  public static final int USES = 24;
-  public static final int MENOR_IGUAL = 45;
-  public static final int MAIOR_IGUAL = 44;
-  public static final int VAR = 17;
-  public static final int SUBTRACAO = 34;
-  public static final int DO = 22;
+  public static final int STRING = 55;
+  public static final int USES = 26;
+  public static final int MENOR_IGUAL = 47;
+  public static final int LABEL = 13;
+  public static final int MAIOR_IGUAL = 46;
+  public static final int SUBTRACAO = 36;
+  public static final int VAR = 19;
+  public static final int PROCEDURE = 14;
+  public static final int DO = 24;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -77,6 +79,8 @@ public class Sym {
   "OR",
   "OF",
   "FUNCTION",
+  "LABEL",
+  "PROCEDURE",
   "TYPE",
   "GOTO",
   "FOR",

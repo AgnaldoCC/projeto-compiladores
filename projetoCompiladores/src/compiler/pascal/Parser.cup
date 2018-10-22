@@ -1,13 +1,11 @@
 package compiler.pascal;
 
 import java_cup.runtime.Symbol;
-import java.util.*;
-import java.io.*;
 
 
 parser code {:
-
-    public void report_error(String message, Object info)  {
+		
+   public void report_error(String message, Object info)  {
         System.out.println("Warning - " + message);
     }
 
@@ -15,6 +13,10 @@ parser code {:
         System.out.println("Error - " + message);
         System.exit(-1);
     }
+
+	public void syntax_error(Symbol s){
+   		 System.out.println(s.value);
+}
 
 :};
 
@@ -30,6 +32,8 @@ terminal CASE;
 terminal OR;
 terminal OF;
 terminal FUNCTION;
+terminal LABEL;
+terminal PROCEDURE;
 terminal TYPE;
 terminal GOTO;
 terminal FOR;
@@ -73,10 +77,56 @@ terminal ID;
 terminal String STRING;
 terminal boolean BOOLEAN;
 
-non terminal expression;
+non terminal programa;
+non terminal cabecalho;
+non terminal declaracoes;
+non terminal corpo;
+non terminal exp_list;
+non terminal ids;
+non terminal tipos;
+non terminal grupo_declaracao_var;
+non terminal grupo_declaracao_label;
+non terminal grupo_declaracao_constante;
+non terminal grupo_declaracao_tipo;
+non terminal declaracao_var;
+non terminal declaracao_constante;
+non terminal declaracao_tipo;
+non terminal declaracao_label;
+non terminal declaracao_funcao;
+non terminal declaracao_procedure;
+non terminal grupo_declaracao;
+non terminal id_list;
+non terminal Integer expression;
 
-start with expression;
+precedence left ADICAO, SUBTRACAO;
+precedence left MULTIPLICACAO, DIVISAO;
 
-expression ::= INTEGER ADICAO INTEGER PONTO_VIRGULA;
-expression ::= ID ADICAO ID PONTO_VIRGULA;
+start with programa;
 
+programa ::= cabecalho declaracoes;
+
+declaracoes ::= declaracao_var;
+
+cabecalho ::= PROGRAMA ID PONTO_VIRGULA;
+
+tipos ::= TIPO_INTEGER
+		  |TIPO_BOOLEAN
+		  |TIPO_STRING
+		  |TIPO_REAL
+		  ;
+
+id_list ::= ID
+			| ID VIRGULA id_list;
+
+declaracao_var ::= VAR id_list DOIS_PONTOS tipos PONTO_VIRGULA;
+
+exp_list ::= exp_list expression:e PONTO_VIRGULA 
+			| expression:e PONTO_VIRGULA 
+			;
+expression ::= expression:e1 ADICAO expression:e2 {: RESULT = e1 + e2; :}
+				| expression:e1 SUBTRACAO expression:e2 {: RESULT = e1 - e2; :}
+				| expression:e1 MULTIPLICACAO expression:e2 {: RESULT = e1 * e2; :}
+				| expression:e1 DIVISAO expression:e2 {: RESULT = e1 / e2; :}
+				| ABRE_PARENTESE expression:e FECHA_PARENTESE {: RESULT = e;:}
+				| INTEGER:n {: RESULT = n; :}
+				;
