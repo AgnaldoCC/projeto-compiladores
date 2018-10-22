@@ -67,16 +67,16 @@ terminal DIFERENTE;
 terminal ATRIBUICAO;
 terminal PONTO;
 terminal COMENTARIO;
-terminal INTEGER;
-terminal REAL;
+terminal Integer INTEGER;
+terminal float REAL;
 terminal ID;
-terminal STRING;
-terminal BOOLEAN;
+terminal String STRING;
+terminal boolean BOOLEAN;
 
 non terminal expression;
-
 
 start with expression;
 
 expression ::= INTEGER ADICAO INTEGER PONTO_VIRGULA;
+expression ::= ID ADICAO ID PONTO_VIRGULA;
 
