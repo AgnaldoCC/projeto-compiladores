@@ -34,20 +34,14 @@ string = \"{conteudoString}\"
 	"Program" { return new Symbol(Sym.PROGRAMA); }
 	"Begin" { return new Symbol(Sym.BEGIN); }
 	"End" { return new Symbol(Sym.END); }
-	"If" { return new Symbol(Sym.IF); }
-	"Then" { return new Symbol(Sym.THEN); }
-	"Else" { return new Symbol(Sym.ELSE);}
 	"and" { return new Symbol(Sym.AND); }
 	"case" { return new Symbol(Sym.CASE); }
 	"or" { return new Symbol(Sym.OR); }
 	"of" { return new Symbol(Sym.OF); }
 	"Function" { return new Symbol(Sym.FUNCTION); }
-	"Label" { return new Symbol(Sym.LABEL); }
 	"Procedure" { return new Symbol(Sym.PROCEDURE); }
 	"type" { return new Symbol(Sym.TYPE); }
 	"Goto" { return new Symbol(Sym.GOTO); }
-	"for" { return new Symbol(Sym.FOR); }
-	"while" { return new Symbol(Sym.WHILE); }
 	"Var" { return new Symbol(Sym.VAR); }
 	"Write" { return new Symbol(Sym.WRITE); }
 	"Writeln" { return new Symbol(Sym.WRITELN); }
@@ -58,6 +52,7 @@ string = \"{conteudoString}\"
 	"uses" { return new Symbol(Sym.USES); }
 	"Integer" { return new Symbol(Sym.TIPO_INTEGER); }
 	"Real" { return new Symbol(Sym.TIPO_REAL); }
+	"Char" { return new Symbol(Sym.TIPO_CHAR); }
 	"Double" { return new Symbol(Sym.TIPO_DOUBLE); }
 	"Boolean" { return new Symbol(Sym.TIPO_BOOLEAN); }
 	"String" { return new Symbol(Sym.TIPO_STRING); }
@@ -83,7 +78,7 @@ string = \"{conteudoString}\"
 	\:= { return new Symbol(Sym.ATRIBUICAO); }
 	\. { return new Symbol(Sym.PONTO); }
 	{brancos} { } 
-	{comentario} { return new Symbol(Sym.COMENTARIO); }
+	{comentario} { }
 	{inteiro} { return new Symbol(Sym.INTEGER, new Integer(Integer.parseInt(yytext()))); }
 	{id} { return new Symbol(Sym.ID, yytext()); }
 	{real} { return new Symbol(Sym.REAL, yytext()); }

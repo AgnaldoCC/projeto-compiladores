@@ -20,4 +20,22 @@ Procedure teste2 (A: Integer, B: Boolean);
 		I := 5 + 4;
 		7 * 8;
 		9 * 7;
-	End;	
+	End;
+
+Begin
+	case Z of
+		1: 5 + 4;
+		2: 6;;
+	7;
+	Writeln("oi");
+	case F of
+		5: 7;
+		8: 153;
+		9: 44 * 7 + 5;
+		6: Begin
+				5;
+				Writeln("oi");
+				a := 6;
+			End;;
+			
+End.	
