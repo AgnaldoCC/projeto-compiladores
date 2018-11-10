@@ -27,6 +27,7 @@ conteudoString = [^\"]*
 comentario = {inicioComentario}{conteudoComentario}{fimComentario}
 brancos = [ \n\t\r\s]
 string = \"{conteudoString}\"
+array = "array ""["{inteiro}".."{inteiro}"] "
 
 %%
 
@@ -45,7 +46,6 @@ string = \"{conteudoString}\"
 	"Var" { return new Symbol(Sym.VAR); }
 	"Write" { return new Symbol(Sym.WRITE); }
 	"Writeln" { return new Symbol(Sym.WRITELN); }
-	"array" { return new Symbol(Sym.ARRAY); }
 	"with" { return new Symbol(Sym.WITH); }
 	"do" { return new Symbol(Sym.DO); }
 	"In"  { return new Symbol(Sym.IN); }
@@ -59,6 +59,7 @@ string = \"{conteudoString}\"
 	"Byte" { return new Symbol(Sym.TIPO_BYTE); }
 	"true" { return new Symbol(Sym.TRUE, true);}
 	"false" { return new Symbol(Sym.FALSE, false);}
+	\! { return new Symbol(Sym.NOT) ;}
 	\; { return new Symbol(Sym.PONTO_VIRGULA); }
 	\: { return new Symbol(Sym.DOIS_PONTOS); }
 	\+ { return new Symbol(Sym.ADICAO); }
@@ -79,6 +80,7 @@ string = \"{conteudoString}\"
 	\. { return new Symbol(Sym.PONTO); }
 	{brancos} { } 
 	{comentario} { }
+	{array} { return new Symbol(Sym.ARRAY); }
 	{inteiro} { return new Symbol(Sym.INTEGER, new Integer(Integer.parseInt(yytext()))); }
 	{id} { return new Symbol(Sym.ID, yytext()); }
 	{real} { return new Symbol(Sym.REAL, yytext()); }

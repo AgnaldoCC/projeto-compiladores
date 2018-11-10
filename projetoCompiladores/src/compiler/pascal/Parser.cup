@@ -35,6 +35,7 @@ terminal ARRAY;
 terminal WITH;
 terminal DO;
 terminal IN;
+terminal NOT;
 terminal USES;
 terminal TIPO_INTEGER;
 terminal TIPO_REAL;
@@ -73,6 +74,7 @@ non terminal cabecalho;
 non terminal declaracoes;
 non terminal corpo;
 non terminal exp_list;
+non terminal exp_bool;
 non terminal ids;
 non terminal tipos;
 non terminal grupo_declaracoes;
@@ -84,7 +86,7 @@ non terminal grupo_declaracao;
 non terminal id_list;
 non terminal parametros;
 non terminal parametro;
-non terminal Integer expression;
+non terminal expression;
 non terminal corpo_funcao;
 non terminal corpo_codigo;
 non terminal atribuicao;
@@ -100,13 +102,17 @@ non terminal print_list;
 non terminal print;
 non terminal corpo_programa;
 non terminal case_list;
+non terminal array;
 
 precedence left ADICAO, SUBTRACAO;
 precedence left MULTIPLICACAO, DIVISAO;
 
 start with programa;
 
-programa ::= cabecalho declaracoes corpo_programa;
+programa ::= cabecalho declaracoes corpo_programa
+			| cabecalho declaracoes
+			| cabecalho
+			| cabecalho corpo_programa;
 
 declaracoes ::= grupo_declaracoes;
 
@@ -146,7 +152,8 @@ print ::= tipos_print ABRE_PARENTESE expression FECHA_PARENTESE
 print_list ::= print PONTO_VIRGULA
 				| print PONTO_VIRGULA print_list;
 
-atribuicao ::= ID ATRIBUICAO exp_list;
+atribuicao ::= ID ATRIBUICAO exp_list
+				| ID ATRIBUICAO exp_bool;
 
 atribuicoes ::= atribuicao atribuicoes
 				| atribuicao;
@@ -155,7 +162,8 @@ id_list ::= ID
 			| ID VIRGULA id_list;
 
 //Variaveis
-declaracao_var ::= id_list DOIS_PONTOS tipos;
+declaracao_var ::= id_list DOIS_PONTOS tipos
+					| array;
 
 grupo_declaracao_var ::= PONTO_VIRGULA
 						| declaracao_var grupo_declaracao_var
@@ -180,9 +188,12 @@ declaracao_procedure ::= PROCEDURE ID ABRE_PARENTESE parametros FECHA_PARENTESE 
 corpo_codigo ::= comandos;
 
 comando ::= ID ATRIBUICAO expression
+			| ID ATRIBUICAO exp_bool
 			| expression
 			| print
-			| case;
+			| case
+			| exp_bool 
+			| array ;
 
 comandos ::= comando PONTO_VIRGULA
 			| comando PONTO_VIRGULA comandos;
@@ -196,14 +207,20 @@ cases ::=  tipo_case DOIS_PONTOS BEGIN comandos END
 
 case_list ::= cases PONTO_VIRGULA
 				| cases PONTO_VIRGULA case_list;
+				
+				
+exp_bool ::= NOT exp_bool:e 
+			| TRUE
+			| FALSE;
 
+array ::= id_list DOIS_PONTOS ARRAY OF tipos;
+				
 exp_list ::= exp_list expression:e PONTO_VIRGULA 
 			| expression:e PONTO_VIRGULA 
 			;
-expression ::= expression:e1 ADICAO expression:e2 {: RESULT = e1 + e2; :}
-				| expression:e1 SUBTRACAO expression:e2 {: RESULT = e1 - e2; :}
-				| expression:e1 MULTIPLICACAO expression:e2 {: RESULT = e1 * e2; :}
-				| expression:e1 DIVISAO expression:e2 {: RESULT = e1 / e2; :}
-				| ABRE_PARENTESE expression:e FECHA_PARENTESE {: RESULT = e;:}
-				| INTEGER:n {: RESULT = n; :}
-				;
+expression ::= expression:e1 ADICAO expression:e2 
+				| expression:e1 SUBTRACAO expression:e2 
+				| expression:e1 MULTIPLICACAO expression:e2 
+				| expression:e1 DIVISAO expression:e2 
+				| ABRE_PARENTESE expression:e FECHA_PARENTESE  
+				| INTEGER:n;

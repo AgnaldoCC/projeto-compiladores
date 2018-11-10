@@ -16,6 +16,7 @@ Function teste (A: Integer, B: Boolean) : String;
 Procedure teste2 (A: Integer, B: Boolean);
 	Var
 		I, FAT : Integer;
+		j, k : array [5..9] of Boolean;
 	Begin
 		I := 5 + 4;
 		7 * 8;
@@ -37,5 +38,8 @@ Begin
 				Writeln("oi");
 				a := 6;
 			End;;
+	x := !true; 
+	!false;
+	teste3: array [1..10] of Integer;
 			
 End.	
