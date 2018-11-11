@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import compiler.generated.LexicalAnalyzer;
+import compiler.generated.Sym;
 import java_cup.runtime.Symbol;
 
 public class LexerTest {

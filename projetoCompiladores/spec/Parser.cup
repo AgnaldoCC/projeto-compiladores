@@ -1,0 +1,226 @@
+package compiler.pascal;
+
+import java_cup.runtime.Symbol;
+
+
+parser code {:
+		
+   public void report_error(String message, Object info)  {
+        System.out.println("Warning - " + message);
+    }
+
+    public void report_fatal_error(String message, Object info)  {
+        System.out.println("Error - " + message);
+        System.exit(-1);
+    }
+
+:};
+
+
+terminal PROGRAMA;
+terminal BEGIN;
+terminal END;
+terminal AND;
+terminal CASE;
+terminal OR;
+terminal OF;
+terminal FUNCTION;
+terminal PROCEDURE;
+terminal TYPE;
+terminal GOTO;
+terminal VAR;
+terminal WRITE;
+terminal WRITELN;
+terminal ARRAY;
+terminal WITH;
+terminal DO;
+terminal IN;
+terminal NOT;
+terminal USES;
+terminal TIPO_INTEGER;
+terminal TIPO_REAL;
+terminal TIPO_BOOLEAN;
+terminal TIPO_DOUBLE;
+terminal TIPO_STRING;
+terminal TIPO_BYTE;
+terminal TIPO_CHAR;
+terminal PONTO_VIRGULA;
+terminal DOIS_PONTOS;
+terminal ADICAO;
+terminal SUBTRACAO;
+terminal MULTIPLICACAO;
+terminal DIVISAO;
+terminal ABRE_PARENTESE;
+terminal FECHA_PARENTESE;
+terminal ABRE_COLCHETE;
+terminal FECHA_COLCHETE;
+terminal VIRGULA;
+terminal MAIOR;
+terminal MENOR;
+terminal MAIOR_IGUAL;
+terminal MENOR_IGUAL;
+terminal DIFERENTE;
+terminal ATRIBUICAO;
+terminal PONTO;
+terminal Integer INTEGER;
+terminal float REAL;
+terminal ID;
+terminal String STRING;
+terminal boolean TRUE;
+terminal boolean FALSE;
+
+non terminal programa;
+non terminal cabecalho;
+non terminal declaracoes;
+non terminal corpo;
+non terminal exp_list;
+non terminal exp_bool;
+non terminal ids;
+non terminal tipos;
+non terminal grupo_declaracoes;
+non terminal grupo_declaracao_var;
+non terminal declaracao_var;
+non terminal declaracao_funcao;
+non terminal declaracao_procedure;
+non terminal grupo_declaracao;
+non terminal id_list;
+non terminal parametros;
+non terminal parametro;
+non terminal expression;
+non terminal corpo_funcao;
+non terminal corpo_codigo;
+non terminal atribuicao;
+non terminal atribuicoes;
+non terminal op_booleano;
+non terminal case;
+non terminal cases;
+non terminal tipo_case;
+non terminal comando;
+non terminal comandos;
+non terminal tipos_print;
+non terminal print_list;
+non terminal print;
+non terminal corpo_programa;
+non terminal case_list;
+non terminal array;
+
+precedence left ADICAO, SUBTRACAO;
+precedence left MULTIPLICACAO, DIVISAO;
+
+start with programa;
+
+programa ::= cabecalho declaracoes corpo_programa
+			| cabecalho declaracoes
+			| cabecalho
+			| cabecalho corpo_programa;
+
+declaracoes ::= grupo_declaracoes;
+
+grupo_declaracoes ::= VAR grupo_declaracao_var declaracao_funcao declaracao_procedure
+						| declaracao_funcao declaracao_procedure VAR grupo_declaracao_var
+						| declaracao_funcao VAR grupo_declaracao_var declaracao_procedure
+						| VAR grupo_declaracao_var declaracao_procedure declaracao_funcao
+						| declaracao_procedure VAR grupo_declaracao_var declaracao_funcao
+						| declaracao_procedure declaracao_funcao VAR grupo_declaracao_var  
+						| declaracao_funcao declaracao_procedure
+						| declaracao_funcao VAR grupo_declaracao_var
+						| declaracao_procedure declaracao_funcao
+						| VAR grupo_declaracao_var declaracao_procedure
+						| VAR grupo_declaracao_var declaracao_funcao
+						| declaracao_procedure VAR grupo_declaracao_var
+						| declaracao_funcao
+						| declaracao_procedure
+						| VAR grupo_declaracao_var; 
+
+cabecalho ::= PROGRAMA ID PONTO_VIRGULA;
+
+corpo_programa ::= BEGIN comandos END PONTO
+					| BEGIN comando END PONTO;
+
+tipos ::= TIPO_INTEGER
+		  |TIPO_BOOLEAN
+		  |TIPO_STRING
+		  |TIPO_REAL
+		  ;
+
+tipos_print ::= WRITELN | WRITE;
+
+print ::= tipos_print ABRE_PARENTESE expression FECHA_PARENTESE
+		| tipos_print ABRE_PARENTESE STRING FECHA_PARENTESE;
+
+
+print_list ::= print PONTO_VIRGULA
+				| print PONTO_VIRGULA print_list;
+
+atribuicao ::= ID ATRIBUICAO exp_list
+				| ID ATRIBUICAO exp_bool;
+
+atribuicoes ::= atribuicao atribuicoes
+				| atribuicao;
+
+id_list ::= ID
+			| ID VIRGULA id_list;
+
+//Variaveis
+declaracao_var ::= id_list DOIS_PONTOS tipos
+					| array;
+
+grupo_declaracao_var ::= PONTO_VIRGULA
+						| declaracao_var grupo_declaracao_var
+						| PONTO_VIRGULA grupo_declaracao_var; 
+
+
+//Funcoes
+parametro ::= ID DOIS_PONTOS tipos;
+parametros ::= parametro
+				| parametro VIRGULA parametros;
+
+declaracao_funcao ::= FUNCTION ID ABRE_PARENTESE parametros FECHA_PARENTESE DOIS_PONTOS tipos PONTO_VIRGULA corpo_funcao
+						| FUNCTION ID DOIS_PONTOS tipos PONTO_VIRGULA corpo_funcao;
+
+corpo_funcao ::= VAR grupo_declaracao_var BEGIN comandos END PONTO_VIRGULA
+				| BEGIN comandos END PONTO_VIRGULA;
+
+//Procedures
+declaracao_procedure ::= PROCEDURE ID ABRE_PARENTESE parametros FECHA_PARENTESE PONTO_VIRGULA corpo_funcao
+						| PROCEDURE ID PONTO_VIRGULA corpo_funcao;
+
+corpo_codigo ::= comandos;
+
+comando ::= ID ATRIBUICAO expression
+			| ID ATRIBUICAO exp_bool
+			| expression
+			| print
+			| case
+			| exp_bool 
+			| array ;
+
+comandos ::= comando PONTO_VIRGULA
+			| comando PONTO_VIRGULA comandos;
+
+//Case
+tipo_case ::= INTEGER | TRUE | FALSE | STRING;
+
+case ::= CASE ID OF case_list;
+cases ::=  tipo_case DOIS_PONTOS BEGIN comandos END
+			| tipo_case DOIS_PONTOS comando;
+
+case_list ::= cases PONTO_VIRGULA
+				| cases PONTO_VIRGULA case_list;
+				
+				
+exp_bool ::= NOT exp_bool:e 
+			| TRUE
+			| FALSE;
+
+array ::= id_list DOIS_PONTOS ARRAY OF tipos;
+				
+exp_list ::= exp_list expression:e PONTO_VIRGULA 
+			| expression:e PONTO_VIRGULA 
+			;
+expression ::= expression:e1 ADICAO expression:e2 
+				| expression:e1 SUBTRACAO expression:e2 
+				| expression:e1 MULTIPLICACAO expression:e2 
+				| expression:e1 DIVISAO expression:e2 
+				| ABRE_PARENTESE expression:e FECHA_PARENTESE  
+				| INTEGER:n;
