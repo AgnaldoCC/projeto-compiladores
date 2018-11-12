@@ -1,6 +1,10 @@
 package compiler.pascal;
 
 import java_cup.runtime.Symbol;
+import compiler.type.Type;
+import compiler.type.TypeFunction;
+import compiler.table.SymbolObj;
+import compiler.table.TableOfSymbols;
 
 
 parser code {:

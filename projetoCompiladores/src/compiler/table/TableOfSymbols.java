@@ -10,12 +10,12 @@ public class TableOfSymbols {
 	static TableOfSymbols root = new TableOfSymbols(null);
 	static int contTable;
 
-	HashMap<String, Symbol> table;
+	HashMap<String, SymbolObj> table;
 	TableOfSymbols prev;
 	List<String> variables;
 
 	public TableOfSymbols(TableOfSymbols prev) {
-		table = new HashMap<String, Symbol>();
+		table = new HashMap<String, SymbolObj>();
 		this.prev = prev;
 		variables = new ArrayList<String>();
 	}
@@ -33,7 +33,7 @@ public class TableOfSymbols {
 		currentScope = root;
 	}
 
-	public static boolean inserir(String name, Symbol s) {
+	public static boolean inserir(String name, SymbolObj s) {
 		if (!currentScope.table.containsKey(name)) {
 			currentScope.table.put(name, s);
 			return true;
@@ -41,12 +41,12 @@ public class TableOfSymbols {
 		return false;
 	}
 
-	public static void inserirSimbolo(String name, Symbol s) {
+	public static void inserirSimbolo(String name, SymbolObj s) {
 		TableOfSymbols e = currentScope.prev;
 		e.table.put(name, s);
 	}
 
-	public static boolean inserirVariavel(String name, Symbol s) {
+	public static boolean inserirVariavel(String name, SymbolObj s) {
 		if (!currentScope.table.containsKey(name)) {
 			currentScope.table.put(name, s);
 			currentScope.variables.add(name);
@@ -55,13 +55,13 @@ public class TableOfSymbols {
 		return false;
 	}
 
-	public static Symbol get(String name) {
+	public static SymbolObj get(String name) {
 		return get(name, currentScope);
 	}
 	
-	public static Symbol get(String name, TableOfSymbols tab) {
+	public static SymbolObj get(String name, TableOfSymbols tab) {
 		for (TableOfSymbols t = tab; t != null; t = t.prev) {
-			Symbol s = (Symbol) (t.table.get(name));
+			SymbolObj s = (SymbolObj) (t.table.get(name));
 			if (s != null) {
 				return s;
 			}

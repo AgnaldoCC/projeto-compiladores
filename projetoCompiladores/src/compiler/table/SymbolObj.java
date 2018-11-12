@@ -2,17 +2,17 @@ package compiler.table;
 
 import compiler.type.Type;
 
-public class Symbol {
+public class SymbolObj {
 
 	Type type;
 	String name;
 	boolean constant;
 
-	public Symbol(String name, Type type) {
+	public SymbolObj(String name, Type type) {
 		this(name, type, false);
 	}
 
-	public Symbol(String name, Type type, boolean constant) {
+	public SymbolObj(String name, Type type, boolean constant) {
 		this.name = name;
 		this.type = type;
 		this.constant = constant;
