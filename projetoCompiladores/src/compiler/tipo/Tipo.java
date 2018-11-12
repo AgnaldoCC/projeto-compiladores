@@ -1,8 +1,8 @@
-package compiler.type;
+package compiler.tipo;
 
 import java.util.HashMap;
 
-public class Type {
+public class Tipo {
 
 	public static final int CHAR = 1;
 	public static final int INTEGER = 2;
@@ -23,13 +23,13 @@ public class Type {
 	public static final int FUNCAO = 93;
 	public static final int NIL = 0;
 
-	static HashMap<String, Type> types = new HashMap<String, Type>();
+	static HashMap<String, Tipo> types = new HashMap<String, Tipo>();
 
 	int tag;
 	int width = 0;
 	String val;
 
-	public Type(int tag, int width, String val) {
+	public Tipo(int tag, int width, String val) {
 		this.tag = tag;
 		this.width = width;
 		this.val = val;
@@ -48,34 +48,34 @@ public class Type {
 	}
 
 	public static void criaTipos() {
-		types.put(INTEGER + "", new Type(INTEGER, 2, "integer"));
-		types.put(LONGINT + "", new Type(LONGINT, 4, "longint"));
-		types.put(SHORTINT + "", new Type(SHORTINT, 1, "integer"));
-		types.put(REAL + "", new Type(REAL, 6, "real"));
-		types.put(DOUBLE + "", new Type(DOUBLE, 8, "double"));
-		types.put(WORD + "", new Type(WORD, 2, "word"));
-		types.put(BYTE + "", new Type(BYTE, 1, "byte"));
-		types.put(CHAR + "", new Type(CHAR, 1, "char"));
-		types.put(STRING + "", new Type(STRING, 8, "string"));
-		types.put(BOOLEAN + "", new Type(BOOLEAN, 1, "boolean"));
-		types.put(TIPO_VOID + "", new Type(TIPO_VOID, 0, "void"));
-		types.put(NIL + "", new Type(NIL, 0, "nil"));
-		types.put(ERRO + "", new Type(ERRO, 0, "error"));
+		types.put(INTEGER + "", new Tipo(INTEGER, 2, "integer"));
+		types.put(LONGINT + "", new Tipo(LONGINT, 4, "longint"));
+		types.put(SHORTINT + "", new Tipo(SHORTINT, 1, "integer"));
+		types.put(REAL + "", new Tipo(REAL, 6, "real"));
+		types.put(DOUBLE + "", new Tipo(DOUBLE, 8, "double"));
+		types.put(WORD + "", new Tipo(WORD, 2, "word"));
+		types.put(BYTE + "", new Tipo(BYTE, 1, "byte"));
+		types.put(CHAR + "", new Tipo(CHAR, 1, "char"));
+		types.put(STRING + "", new Tipo(STRING, 8, "string"));
+		types.put(BOOLEAN + "", new Tipo(BOOLEAN, 1, "boolean"));
+		types.put(TIPO_VOID + "", new Tipo(TIPO_VOID, 0, "void"));
+		types.put(NIL + "", new Tipo(NIL, 0, "nil"));
+		types.put(ERRO + "", new Tipo(ERRO, 0, "error"));
 	}
 
-	public static Type getTipo(int tag) {
+	public static Tipo getTipo(int tag) {
 		return types.get("" + tag);
 	}
 
-	public static Type getTipo(String val) {
-		for (Type tipo : types.values()) {
+	public static Tipo getTipo(String val) {
+		for (Tipo tipo : types.values()) {
 			if (tipo.getVal().equals(val))
 				return tipo;
 		}
 		return null;
 	}
 
-	public static Type maximo(Type t1, Type t2) {
+	public static Tipo maximo(Tipo t1, Tipo t2) {
 		return t1.width > t2.width ? t1 : t2;
 	}
 }

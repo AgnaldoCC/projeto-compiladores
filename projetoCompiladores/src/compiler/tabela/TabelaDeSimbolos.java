@@ -1,26 +1,26 @@
-package compiler.table;
+package compiler.tabela;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TableOfSymbols {
+public class TabelaDeSimbolos {
 
-	public static TableOfSymbols currentScope;
-	static TableOfSymbols root = new TableOfSymbols(null);
+	public static TabelaDeSimbolos currentScope;
+	static TabelaDeSimbolos root = new TabelaDeSimbolos(null);
 	static int contTable;
 
-	HashMap<String, SymbolObj> table;
-	TableOfSymbols prev;
+	HashMap<String, Simbolo> table;
+	TabelaDeSimbolos prev;
 	List<String> variables;
 
-	public TableOfSymbols(TableOfSymbols prev) {
-		table = new HashMap<String, SymbolObj>();
+	public TabelaDeSimbolos(TabelaDeSimbolos prev) {
+		table = new HashMap<String, Simbolo>();
 		this.prev = prev;
 		variables = new ArrayList<String>();
 	}
 
-	public static TableOfSymbols getRoot() {
+	public static TabelaDeSimbolos getRoot() {
 		return root;
 	}
 	
@@ -33,7 +33,7 @@ public class TableOfSymbols {
 		currentScope = root;
 	}
 
-	public static boolean inserir(String name, SymbolObj s) {
+	public static boolean inserir(String name, Simbolo s) {
 		if (!currentScope.table.containsKey(name)) {
 			currentScope.table.put(name, s);
 			return true;
@@ -41,12 +41,12 @@ public class TableOfSymbols {
 		return false;
 	}
 
-	public static void inserirSimbolo(String name, SymbolObj s) {
-		TableOfSymbols e = currentScope.prev;
+	public static void inserirSimbolo(String name, Simbolo s) {
+		TabelaDeSimbolos e = currentScope.prev;
 		e.table.put(name, s);
 	}
 
-	public static boolean inserirVariavel(String name, SymbolObj s) {
+	public static boolean inserirVariavel(String name, Simbolo s) {
 		if (!currentScope.table.containsKey(name)) {
 			currentScope.table.put(name, s);
 			currentScope.variables.add(name);
@@ -55,13 +55,13 @@ public class TableOfSymbols {
 		return false;
 	}
 
-	public static SymbolObj get(String name) {
+	public static Simbolo get(String name) {
 		return get(name, currentScope);
 	}
 	
-	public static SymbolObj get(String name, TableOfSymbols tab) {
-		for (TableOfSymbols t = tab; t != null; t = t.prev) {
-			SymbolObj s = (SymbolObj) (t.table.get(name));
+	public static Simbolo get(String name, TabelaDeSimbolos tab) {
+		for (TabelaDeSimbolos t = tab; t != null; t = t.prev) {
+			Simbolo s = (Simbolo) (t.table.get(name));
 			if (s != null) {
 				return s;
 			}
@@ -69,9 +69,9 @@ public class TableOfSymbols {
 		return null;
 	}
 
-	static void push(TableOfSymbols tab) {
+	static void push(TabelaDeSimbolos tab) {
 		contTable++;
-		currentScope = new TableOfSymbols(tab);
+		currentScope = new TabelaDeSimbolos(tab);
 	}
 
 	public static void push() {

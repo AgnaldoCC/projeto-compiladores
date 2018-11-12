@@ -1,24 +1,24 @@
-package compiler.table;
+package compiler.tabela;
 
-import compiler.type.Type;
+import compiler.tipo.Tipo;
 
-public class SymbolObj {
+public class Simbolo {
 
-	Type type;
+	Tipo type;
 	String name;
 	boolean constant;
 
-	public SymbolObj(String name, Type type) {
+	public Simbolo(String name, Tipo type) {
 		this(name, type, false);
 	}
 
-	public SymbolObj(String name, Type type, boolean constant) {
+	public Simbolo(String name, Tipo type, boolean constant) {
 		this.name = name;
 		this.type = type;
 		this.constant = constant;
 	}
 
-	public Type getType() {
+	public Tipo getType() {
 		return type;
 	}
 
