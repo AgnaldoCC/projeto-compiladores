@@ -1,8 +1,24 @@
-﻿# ProjetoCompiladores
-Repositório com o projeto da disciplina Compiladores do período 2018.2
+# Compilador da linguagem Pascal
 
-* Para executar o analisador Léxico, siga os seguintes passos:
-  * Execute a classe GeneratorPascal no pacote pascal.lexicanalyzer;
-  * Após isso, um arquivo LexicalAnalyzer.java deverá ser gerado;
-  * Vá até a pasta que estão os arquivos do projeto via terminal e execute a seguinte linha de comando: java -jar C:\cup\java-cup-11b.jar -parser Parser -symbols Sym .\Parser.cup (Obs: após o -jar, adicione o caminho do .jar do java_cup que está na pasta lib/);
-  * Após isso, um arquivo Sym.java e outro Parser.java deverão ter sido gerados. (Já adicionados nesse repositório).
+Universidade Federal de Campina Grande, Compiladores - Turma 2, 2018.2
+
+Repositório com o projeto da disciplina
+Alunos: Agnaldo, Ariann, Dayvson e Victor Eduardo.
+
+Escopo Geral:
+- Abstrações (nome, quantidade e tipos de parâmetros de entrada e tipo de retorno);
+- Declaração e uso de Variáveis;
+- Comandos de atribuição;
+- Expressões aritméticas;
+- Literais (inteiros, string, booleanos).
+
+Escopo C:
+- Arrays;
+- Expressões Booleanas;
+- Comandos condicionais: Case.
+
+# Como executar:
+
+- Adicione o programa em Pascal no arquivo src/pascal/program.pas;
+- Execute o build.xml como Ant Build;
+- Execute a classe Main.java.
