@@ -1,8 +1,10 @@
 package compiler.pascal;
 
 import java.io.FileReader;
+
 import java.io.IOException;
 import java.nio.file.Paths;
+
 
 import java_cup.runtime.Symbol;
 

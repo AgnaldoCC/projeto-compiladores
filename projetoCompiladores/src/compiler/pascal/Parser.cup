@@ -1,6 +1,10 @@
 package compiler.pascal;
 
 import java_cup.runtime.Symbol;
+import compiler.tipo.Tipo;
+import compiler.tipo.TipoFuncoes;
+import compiler.table.Simbolo;
+import compiler.table.TabelaDeSimbolos;
 
 
 parser code {:
@@ -16,6 +20,73 @@ parser code {:
 
 :};
 
+
+action code {:
+	class Exp {
+		public Tipo tipo;
+		public String code;
+		public boolean ehConstante;
+		
+		Exp(Tipo tipo, String code, boolean ehConstante) {
+			this.tipo = tipo;
+			this.code = code;
+			this.ehConstante = ehConstante;
+		}
+		Exp(Tipo tipo, String code) {
+			this(tipo, code, false)
+		}
+	}
+	
+	class Reg {
+		Public String id;
+		Public String val;
+		
+		Reg(String id) {
+			this(id, "");
+		}
+		Reg(String id, String val) {
+			this.id = id;
+			this.val = val;
+		}
+	}
+	
+		public static String assembOp(String pascOper) {
+		if(pascOper.equals("-")) {
+			return "SUB";
+		}
+		else if(pascOper.equals("+")) {
+			return "ADD";
+		}
+		else if(pascOper.equals("*")) {
+			return "MUL";
+		}
+		else if(pascOper.equals("/") || pascOper.toLowerCase().equals("div")) {
+			return "DIV";
+		}
+		return "";
+	}
+	
+	List<Reg> argRegs = new ArrayList<Reg> ();
+	
+	
+	public Reg getArgReg(String val) {
+		for(Reg reg : argRegs) {
+			if(reg.val.equals(val))
+				return reg;
+		}
+		return null;
+	}
+	
+	List<Integer> labels = new ArrayList<Integer>();
+	
+	int label = 0;
+:};
+
+init with {:
+	TabelaDeSimbolos.inicializa();
+	Tipo.criaTipos();
+	
+:};
 
 terminal PROGRAMA;
 terminal BEGIN;

@@ -8,7 +8,7 @@ public class GeneratorPascal {
     public static void main(String[] args) {
 
         String rootPath = Paths.get("").toAbsolutePath().toString();
-        String subPath = "/src/compiler/pascal/";
+        String subPath = "/spec/";
 
         String file = rootPath + subPath + "pascal.lex";
 
