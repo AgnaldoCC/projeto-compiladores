@@ -297,7 +297,7 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 	TabelaDeSimbolos.inicializa();
 	Tipo.criaTipos();
-	
+/*	
  	ComplexSymbolFactory f = new ComplexSymbolFactory();
 	symbolFactory = f;
 	File file = new File("input.txt");
@@ -308,15 +308,8 @@ public class Parser extends java_cup.runtime.lr_parser {
 		e.printStackTrace();
 	} 
 	sc = new Scanner(f,fis);
-	
+*/
 
-    }
-
-  /** Scan to get the next Symbol. */
-  public java_cup.runtime.Symbol scan()
-    throws java.lang.Exception
-    {
- return Scanner.next_token(); 
     }
 
 
