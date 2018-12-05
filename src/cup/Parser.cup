@@ -7,7 +7,7 @@ import java.util.List;
 
 
 parser code {:
-	protected Lexer lexer;
+		
    public void report_error(String message, Object info)  {
         System.out.println("Warning - " + message);
     }
@@ -85,19 +85,7 @@ init with {:
 	TabelaDeSimbolos.inicializa();
 	Tipo.criaTipos();
 	
-	ComplexSimboloFactory f = new ComplexSimboloFactory();
-	simboloFactory = f;
-	File file = new File("input.txt");
-	FileInputStream fis = null;
-	try {
-		fis = new FileInputStream(file);
-	} catch (IOException e) {
-		e.printStackTrace();
-	} 
-	lexer = new Lexer(f,fis);
 :};
-
-scan with {: return lexer.next_token(); :};
 
 terminal PROGRAMA;
 terminal BEGIN;
@@ -306,52 +294,3 @@ expression ::= expression:e1 ADICAO expression:e2
 				| expression:e1 DIVISAO expression:e2 
 				| ABRE_PARENTESE expression:e FECHA_PARENTESE  
 				| INTEGER:n;
-
-				
-for_designator ::= FOR control_variable:cv equal_op initial_value:iv direction final_value:fv {:
-	SymbolImpl tabelaDeSimbolosCV = TabelaDeSimbolos.get(cv.toString());
-	if (tabelaDeSimbolosCV == null) {
-		parser.report_error("Undeclared variable ", "ERROR");
-	}
-	Exp exIV = (Exp)iv;
-	Exp exFV = (Exp)fv;
-	parser.checkEqualTypes(exIV.tipo, Tipo.getTipo("integer"));
-	parser.checkEqualTypes(exFV.tipo, Tipo.getTipo("integer"));
-	parser.checkEqualTypes(tabelaDeSimbolosCV.getType(), Tipo.getTipo("integer"));
-:};
-control_variavel ::= identifier:id {:
-	RESULT = id.toString();
-:};
-initial_value ::= exp_part:e {:
-	Exp exp = (Exp)e;
-	RESULT = exp;
-:};
-direction ::= TO | DOWNTO;
-final_value ::= exp_part:e {:
-	Exp exp = (Exp)e;
-	RESULT = exp;
-:};
-
-identifier ::= IDENTIFIER:x {:
-	RESULT = x;
-:};
-
-procedure_declaration ::= PROCEDURE identifier:id parameters_list:pl SEMI {:
-	ProcedureType p = new ProcedureType();
-	List<Type> l = (List<Type>)pl; 
-	p.addParams(l);
-	if (! TabelaDeSimbolos.insert(id.toLowerCase(), new SymbolImpl(id, p))){
-		parser.report_error("Duplicate name ", "ERROR");
-	}
-:};
-
-
-function_declaration ::= FUNCTION identifier:id parameters_list:pl COLON type_def:td SEMI{:
-	Tipo returnType = (Type)td;
-	FunctionType p = new FunctionType(returnType);
-	List<Type> l = (List<Type>)pl; 
-	p.addParams(l);
-	if (! SymbolTable.insert(id.toLowerCase(), new SymbolImpl(id, p))){
-		parser.report_error("Duplicate name ", "ERROR");
-	}
-:};
