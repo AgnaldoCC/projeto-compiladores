@@ -6,6 +6,10 @@
 package com.ufcg.compilador;
 
 import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java_cup.runtime.XMLElement;
@@ -294,11 +298,29 @@ public class Parser extends java_cup.runtime.lr_parser {
 	TabelaDeSimbolos.inicializa();
 	Tipo.criaTipos();
 	
+ 	ComplexSymbolFactory f = new ComplexSymbolFactory();
+	symbolFactory = f;
+	File file = new File("input.txt");
+	FileInputStream fis = null;
+	try {
+		fis = new FileInputStream(file);
+	} catch (IOException e) {
+		e.printStackTrace();
+	} 
+	sc = new Scanner(f,fis);
+	
 
     }
 
+  /** Scan to get the next Symbol. */
+  public java_cup.runtime.Symbol scan()
+    throws java.lang.Exception
+    {
+ return Scanner.next_token(); 
+    }
 
-		
+
+	protected Scanner sc;
    public void report_error(String message, Object info)  {
         System.out.println("Warning - " + message);
     }
