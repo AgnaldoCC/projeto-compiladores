@@ -89,4 +89,4 @@ array = "array ""["{inteiro}".."{inteiro}"] "
 
 <<EOF>> { return new Symbol(sym.EOF); }
 
-. { throw new RuntimeException("Caractere inv�lido " + yytext() + " na linha " + yyline + ", coluna " +yycolumn); }
+. { throw new RuntimeException("Caractere invalido " + yytext() + " na linha " + yyline + ", coluna " +yycolumn); }

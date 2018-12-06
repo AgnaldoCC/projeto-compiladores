@@ -9,8 +9,10 @@ Function teste (A: Integer, B: Boolean) : String;
 		I, FAT : Integer;
 	Begin
 		I := 5 + 4;
-		7 * 8;
-		9 * 7;
+		l := 7 * 8;
+		m := 9 * 7;
+		y := teste2(l,m);
+		teste3(a, b);
 	End;
 
 Procedure teste2 (A: Integer, B: Boolean);
@@ -19,27 +21,26 @@ Procedure teste2 (A: Integer, B: Boolean);
 		j, k : array [5..9] of Boolean;
 	Begin
 		I := 5 + 4;
-		7 * 8;
-		9 * 7;
+		j := 7 * 8;
+		l := 9 * 7;
 	End;
 
 Begin
 	case Z of
 		1: 5 + 4;
 		2: 6;;
-	7;
+	s := 7;
 	Writeln("oi");
 	case F of
-		5: 7;
-		8: 153;
-		9: 44 * 7 + 5;
-		6: Begin
-				5;
+		5: a := 7;
+		8: b := 153;
+		9: c := 44 * 7 + 5;
+		6: 	Begin
+				r := 5;
 				Writeln("oi");
 				a := 6;
 			End;;
 	x := !true; 
 	!false;
-	teste3: array [1..10] of Integer;
-			
+	teste3: array [1..10] of Integer;	
 End.	
